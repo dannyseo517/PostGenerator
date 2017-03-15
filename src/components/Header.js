@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 require( '../../public/assets/css/header.css');
 
-class App extends Component {
+class Header extends Component {
   render() {
     return (
       <div className="kesselHeader">
@@ -50,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Header;
