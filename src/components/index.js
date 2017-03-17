@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import Header from './Header';
 import LeftPanel from './LeftPanel';
 
-class Main extends Component{
+class Index extends Component{
     render(){
         return(
             <div className="root">
@@ -14,4 +14,4 @@ class Main extends Component{
     }
 }
 
-export default Main;
+export default Index;
