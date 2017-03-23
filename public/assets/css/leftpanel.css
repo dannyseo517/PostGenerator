@@ -9,3 +9,12 @@
     background: #eaeaea;
     overflow-y: auto;
 }
+
+.leftpanel-container h2{
+    font-size:30px;
+}
+
+.leftpanel-container .post-option select{
+    padding-left: 5px;
+    padding-right: 5px;
+}

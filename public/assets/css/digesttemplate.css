@@ -1,0 +1,42 @@
+.tableContainer{
+    padding: 0 3px 0 0;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    width: 100%;
+    border-spacing: 0px;
+}
+
+.tableContainer table{
+        width: 615px;
+    text-align: left;
+}
+
+
+
+.articleTitle{
+    font-family: Arial, sans-serif; 
+    font-size: 20px; 
+    font-weight: bold; 
+    line-height: 25px; 
+    padding-bottom: 5px;
+}
+
+.articleText{
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 21px;
+    padding-bottom: 5px;
+}
+
+.read{
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+}
+
+.articleBlock{
+    padding-bottom: 10px;
+}

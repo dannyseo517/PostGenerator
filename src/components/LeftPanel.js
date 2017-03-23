@@ -13,15 +13,15 @@ class LeftPanel extends Component{
     {
         this.setState({value: event.target.posttext});
         alert("The Child text is: " + this.event.target.posttext);
+        
     }
     render(){
         return(
-            <div className="">
-                <div className="leftpanel-container">
-                    <h2>Sponsor Post Generator</h2>
-                    <PostSelector onChange={this.handleChange} postext={this.state.posttext}/>
-                </div>
+            <div className="leftpanel-container">
+                <h2>Sponsor Post Generator</h2>
+                <PostSelector onChange={this.handleChange} postext={this.state.posttext}/>
             </div>
+            
         )
     }
 }

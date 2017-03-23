@@ -7,9 +7,7 @@ class PostSelector extends Component{
     constructor(props){
         super(props);
         this.state = {
-            headline: '',
-            value: '',
-            body: ''
+            content: <SponsorPost />
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,7 +19,7 @@ class PostSelector extends Component{
         this.setState({value: event.target.value});
         
         if(event.target.value == "WebsiteSponsorPost"){
-            this.state.content = "";
+            this.state.content = <SponsorPost />;
         }
         if(event.target.value == "DigestSponsorPost" || event.target.value == "HeroPlacement"){
             this.state.content = "";
@@ -39,7 +37,7 @@ class PostSelector extends Component{
                     <option value="DigestSponsorPost">Digest Sponsor Post</option>
                     <option value="HeroPlacement">Hero Placement</option>
                 </select>
-                <SponsorPost />
+                {this.state.content}
             </div>
             
         );
