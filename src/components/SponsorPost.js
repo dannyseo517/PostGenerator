@@ -19,7 +19,7 @@ class SponsorPost extends Component{
         this.handleBodyChange2 = this.handleBodyChange2.bind(this);
         this.handlePreview1 = this.handlePreview1.bind(this);
         this.handlePreview2 = this.handlePreview2.bind(this);
-
+        this.openFileBrowser1 = this.openFileBrowser1.bind(this);
         this.props.dispatch;
     }
 
@@ -38,12 +38,31 @@ class SponsorPost extends Component{
     handlePreview1(event){
         const {dispatch} = this.props
         event.preventDefault();
-        this.props.dispatch(addAdSpot1(this.state.headline1, this.state.body1));
+        var img, fr;
+        var file = document.getElementById('image1').files[0];
+        fr = new FileReader();
+        fr.onload = function(){
+            img = new Image();
+            img.onload = function (){
+                if (this.width == this.height ) {
+                }
+            };
+            img.src = fr.result;
+            
+        };
+        fr.readAsDataURL(file);
+        console.log(file.clientWidth);
+        this.props.dispatch(addAdSpot1(this.state.headline1, this.state.body1, file));
+        
     }
+
     handlePreview2(event){
         const {dispatch} = this.props
         event.preventDefault();
         this.props.dispatch(addAdSpot2(this.state.headline2, this.state.body2));
+    }
+    openFileBrowser1(event){
+        document.getElementById("image1").click();
     }
     render(){
         return(
@@ -58,13 +77,15 @@ class SponsorPost extends Component{
                 <div className="clearfix"></div>
                 
                 <h5>Image</h5>
-                <a href="#" className="btn btn-primary btn-block">
-                <i className="fa fa-upload"></i> Upload Image
-                </a>
+                <button className="btn btn-primary btn-block" onClick={this.openFileBrowser1}>
+                    <i className="fa fa-upload"></i> Upload Image
+                </button>
+                <input id="image1" style={{display: 'none' }} type='file'/>
                 <span className="input-note">Required Size: 200x200 pixels</span>
-                <button type="submit" className="btn btn-success pull-right" onClick={this.handlePreview1} >
+                <button type="button" className="btn btn-success pull-right" onClick={this.handlePreview1} >
                     Preview
                 </button>
+                
                 <h5>Headline</h5>
                 <input type="text" className="form-control" placeholder="Text input" value={this.state.headline2} onChange={this.handleHeadLineChange2}/>
                 <span className="input-note">Characters Left: 60</span>

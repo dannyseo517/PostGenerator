@@ -4,16 +4,21 @@
     border-right-width: 0px;
     border-bottom-width: 0px;
     border-left-width: 0px;
-    width: 100%;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    /* give it dimensions */
+    min-height: 10em;
+    width: 30%;
     border-spacing: 0px;
 }
 
 .tableContainer table{
-        width: 615px;
+    width: 615px;
     text-align: left;
+    
 }
-
-
 
 .articleTitle{
     font-family: Arial, sans-serif; 
@@ -30,6 +35,10 @@
     padding-bottom: 5px;
 }
 
+p{
+    margin: 0 !important;
+}
+
 .read{
     font-family: Arial, sans-serif;
     font-size: 14px;
@@ -39,4 +48,154 @@
 
 .articleBlock{
     padding-bottom: 10px;
+}
+
+.articleImage{
+    width: 150px;
+    vertical-align: top;
+}
+
+.image{
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 17px;
+    padding-right: 8px;
+}
+
+.vertSpace{
+    font-size: 0;
+    line-height: 0;
+}
+
+.article{
+    width: 450px;
+    vertical-align: top;
+}
+
+.articlePadding{
+    font-size: 0;
+    line-height: 0;
+}
+
+.articleBlockPadding{
+    font-size: 0;
+    line-height: 0;
+    padding-top: 10px;
+}
+
+.articleBlock{
+    padding-bottom: 10px;
+}
+
+.centerContainer{
+    text-align:center;
+    vertical-align: top;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #333;
+}
+
+.featuredBlock{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.featureImage{
+    width: 300px;
+    vertical-align: top;
+    padding-right: 8px;
+}
+
+.featureTitle{
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 29px;
+    padding-bottom: 5px;
+}
+
+.featureText{
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 21px;
+    padding-bottom: 5px;
+}
+
+.featureread{
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+}
+
+.feature{
+    width: 300px;
+    vertical-align: top;
+}
+
+.headerText{
+        vertical-align: top;
+    padding-top: 0;
+    padding-bottom: 5px;
+}
+
+.headerText > div{
+        text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.headerImage{
+    padding: 5px;
+    background-image: url(http://www.mining.com/wp-content/themes/Kessel/digests/common/assets/images/template/header-bg.jpg);
+    background-repeat: repeat-x;
+    background-position: bottom;
+}
+
+.headerTable{
+    border: 1px solid #949494;
+}
+
+.MND{
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    line-height: 32px;
+    font-weight: bold;
+    color: #363636;
+    text-align: right;
+}
+
+.date{
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: bold;
+    color: #666;
+    text-align: right;
+}
+
+.toolbar{
+    vertical-align: top;
+    width: 100%;
+    background-color: #044869;
+    padding-left: 10px;
+}
+
+.toollist{
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    width: 613px;
+}
+
+.toollist > div{
+    font-size: 13px;
+}
+
+.toollist > div > a{
+    color: #fff;
+    text-decoration: none;
+    margin-left: 8px;
+    margin-right: 8px;
 }

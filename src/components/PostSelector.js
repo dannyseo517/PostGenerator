@@ -22,7 +22,7 @@ class PostSelector extends Component{
             this.state.content = <SponsorPost />;
         }
         if(event.target.value == "DigestSponsorPost" || event.target.value == "HeroPlacement"){
-            this.state.content = "";
+            this.state.content = <SponsorPost />;
         }
     }
 
