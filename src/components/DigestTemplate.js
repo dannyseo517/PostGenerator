@@ -1,14 +1,103 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 require( '../../public/assets/css/digesttemplate.css');
+
+function wrapText(context,text,x,y,maxWidth,lineHeight) {
+    var words = text.split(' ');
+    var line = '';
+    var secondline = false;
+    for(var n = 0; n < words.length; n++) {
+      var testLine = line + words[n] + ' ';
+      var metrics = context.measureText(testLine);
+      var testWidth = metrics.width;
+      if (testWidth > maxWidth && n > 0) {
+        context.fillText(line, x, y);
+        line = words[n] + ' ';
+        y += lineHeight;
+        secondline = true;
+      }
+      else {
+        line = testLine;
+      }
+    }
+    context.fillText(line, x, y);
+    return secondline;
+}
 
 class DigestTemplate extends Component{
     constructor(props){
         super(props);
-    }
 
+    }
+    createImage(){
+        var gutter = 14;
+        var imgwidth = 150;
+        var imgheight = 150;
+        var topy = 20;
+        var headerlineheight=25;
+        var canvaswidth = 615;
+        var canvasheight = 150;
+        var textxstart = imgwidth+gutter;
+        var textxstop = canvaswidth-imgwidth-gutter;
+        var mainlineheight = 21;
+        var mainy = 77;
+        var footery = 140;
+        var sponsorlineheight = 21;
+        var multiline = false;
+
+        console.log(this.props);
+        
+        if(this.props.image != null){
+            var file = this.props.image;
+            var h1 = this.props.headline;
+            var b1 = this.props.body;
+            
+            var div = document.getElementById(this.props.id + '-div');
+            var canvas = document.createElement("canvas");
+            canvas.id = "sp1-canvas";
+
+            var fr = new FileReader();
+
+            fr.onload = function(){
+                var ctx = canvas.getContext('2d');
+                ctx.canvas.width = canvaswidth;
+                ctx.canvas.height = canvasheight;
+                ctx.clearRect(0, 0, canvaswidth, canvasheight);
+                var img = new Image();
+                img.onload = function(){
+                    ctx.drawImage(img, 0,0,150,150);
+                    // add header and body text
+                    ctx.font = "bold 20px Arial";
+                    ctx.fillStyle = '#044869';
+                    var titleText = h1;
+                    multiline = wrapText(ctx,titleText,textxstart,topy,textxstop,headerlineheight);
+                    if (!multiline) {
+                        mainy = mainy - headerlineheight;
+                    }
+                    ctx.font = "14px Arial";
+                    ctx.fillStyle = '#333333';
+                    var bodyText = b1;
+                    multiline = wrapText(ctx,bodyText,textxstart,mainy,textxstop,mainlineheight);
+                    //sponsor footer
+                    ctx.fillStyle = '#cccccc';
+                    ctx.fillText("SPONSOR",textxstart,footery,textxstop);
+                    div.innerHTML = "";
+                    div.appendChild(canvas);
+
+                }
+                
+                img.src = fr.result;
+            }
+            fr.readAsDataURL(file);
+        }
+        
+    }
+    
+    
     render(){
         return(
             <table className="tableContainer">
+                {this.createImage()}
                 <tbody>
                     <tr>
                         <td className="centerContainer">
@@ -16,6 +105,7 @@ class DigestTemplate extends Component{
                                 <tbody>
                                     <tr>
                                         <td>
+                                            
                                             <img src="http://www.mining.com/wp-content/themes/Kessel/digests/common/assets/images/template/padding.gif" alt="" width="1" height="2" />
                                         </td>
                                     </tr>
@@ -143,7 +233,12 @@ class DigestTemplate extends Component{
                                         <td><img src="http://www.mining.com/wp-content/themes/Kessel/digests/common/assets/images/template/padding.gif" alt="" width="1" height="10" /></td>
                                     </tr>
                                     <tr>
-                                        <td><a href="#"> <img src="https://pubads.g.doubleclick.net/gampad/ad?iu=/1043744/Digest-Sponsored-Post-1_615x150&amp;sz=615x150&amp;c=490293868&amp;t=digesttype%3Dmining%2Dnews%2Ddigest" alt="" /> </a></td>
+                                        <td>
+                                            <a href="#"> 
+                                                <div id="sp1-div">
+                                                </div>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><img src="http://www.mining.com/wp-content/themes/Kessel/digests/common/assets/images/template/padding.gif" alt="" width="1" height="10" /></td>
@@ -358,7 +453,8 @@ class DigestTemplate extends Component{
                                                     <tr>
                                                         <td>
                                                             <a href="#"> 
-                                                                <img src="https://pubads.g.doubleclick.net/gampad/ad?iu=/1043744/Digest-Sponsored-Post-2_615x150&amp;sz=615x150&amp;c=490293868&amp;t=digesttype%3Dmining%2Dnews%2Ddigest" alt="" /> 
+                                                                <div id="sp2-div">
+                                                                </div>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -448,7 +544,12 @@ class DigestTemplate extends Component{
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href="#"> <img src="https://pubads.g.doubleclick.net/gampad/ad?iu=/1043744/Digest-Sponsored-Post-3_615x150&amp;sz=615x150&amp;c=490293868&amp;t=digesttype%3Dmining%2Dnews%2Ddigest" alt="" /> </a></td>
+                                        <td>
+                                            <a href="#"> 
+                                                <div id="sp3-div">
+                                                </div>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><img src="http://www.mining.com/wp-content/themes/Kessel/digests/common/assets/images/template/padding.gif" alt="" width="1" height="10" /></td>
@@ -652,5 +753,17 @@ class DigestTemplate extends Component{
         )
     }
 }
+
+const mapStateToProps = state => {
+    return{
+        headline: state.mainpanel.headline,
+        body: state.mainpanel.body,
+        image: state.mainpanel.image,
+        id: state.mainpanel.id
+    }
+    
+}
+
+DigestTemplate = connect(mapStateToProps)(DigestTemplate)
 
 export default DigestTemplate;

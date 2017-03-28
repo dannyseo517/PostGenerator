@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {addAdSpot1, addAdSpot2} from '../actions'
+import {addAdSpot} from '../actions'
 import {connect} from 'react-redux'
+
 
 class SponsorPost extends Component{
     constructor(props){
@@ -17,9 +18,8 @@ class SponsorPost extends Component{
         this.handleBodyChange1 = this.handleBodyChange1.bind(this);
         this.handleHeadLineChange2 = this.handleHeadLineChange2.bind(this);
         this.handleBodyChange2 = this.handleBodyChange2.bind(this);
-        this.handlePreview1 = this.handlePreview1.bind(this);
-        this.handlePreview2 = this.handlePreview2.bind(this);
-        this.openFileBrowser1 = this.openFileBrowser1.bind(this);
+        this.handlePreview = this.handlePreview.bind(this);
+        this.openFileBrowser = this.openFileBrowser.bind(this);
         this.props.dispatch;
     }
 
@@ -35,74 +35,60 @@ class SponsorPost extends Component{
     handleBodyChange2(event){
         this.setState({body2: event.target.value})
     }
-    handlePreview1(event){
+    handlePreview(event){
         const {dispatch} = this.props
         event.preventDefault();
-        var img, fr;
-        var file = document.getElementById('image1').files[0];
-        fr = new FileReader();
-        fr.onload = function(){
-            img = new Image();
-            img.onload = function (){
-                if (this.width == this.height ) {
-                }
-            };
-            img.src = fr.result;
-            
-        };
-        fr.readAsDataURL(file);
-        console.log(file.clientWidth);
-        this.props.dispatch(addAdSpot1(this.state.headline1, this.state.body1, file));
+        console.log(document.getElementById((document.getElementById(event.target.id).parentNode.id + '-image')).files[0]);
+        this.props.dispatch(addAdSpot(document.getElementById(event.target.id).parentNode.id, 
+            this.state.headline1, this.state.body1, document.getElementById((document.getElementById(event.target.id).parentNode.id + '-image')).files[0]));
         
     }
-
-    handlePreview2(event){
-        const {dispatch} = this.props
-        event.preventDefault();
-        this.props.dispatch(addAdSpot2(this.state.headline2, this.state.body2));
-    }
-    openFileBrowser1(event){
-        document.getElementById("image1").click();
+    openFileBrowser(event){
+        document.getElementById((document.getElementById(event.target.id).parentNode.id + '-image')).click();
     }
     render(){
         return(
             <div className="kesselWebSP">
-                <h5>Headline</h5>
-                <input type="text" className="form-control" placeholder="Text input" value={this.state.headline1} onChange={this.handleHeadLineChange1}/>
-                <span className="input-note">Characters Left: 60</span>
-            
-                <h5>Body</h5>
-                <textarea className="form-control" rows="3" value={this.state.body1} onChange={this.handleBodyChange1}></textarea>
-                <span className="input-note">Characters Left: 175</span>
-                <div className="clearfix"></div>
+                <div id="sp1">
+                    <h5>Headline</h5>
+                    <input id="sp1-header" type="text" className="form-control" placeholder="Text input" value={this.state.headline1} onChange={this.handleHeadLineChange1}/>
+                    <span className="input-note">Characters Left: 60</span>
                 
-                <h5>Image</h5>
-                <button className="btn btn-primary btn-block" onClick={this.openFileBrowser1}>
-                    <i className="fa fa-upload"></i> Upload Image
-                </button>
-                <input id="image1" style={{display: 'none' }} type='file'/>
-                <span className="input-note">Required Size: 200x200 pixels</span>
-                <button type="button" className="btn btn-success pull-right" onClick={this.handlePreview1} >
-                    Preview
-                </button>
+                    <h5>Body</h5>
+                    <textarea id="sp1-body" className="form-control" rows="3" value={this.state.body1} onChange={this.handleBodyChange1}></textarea>
+                    <span className="input-note">Characters Left: 175</span>
+                    <div className="clearfix"></div>
+                    
+                    <h5>Image</h5>
+                    <button id="sp1-btn" className="btn btn-primary btn-block" onClick={this.openFileBrowser}>
+                        <i className="fa fa-upload"></i> Upload Image
+                    </button>
+                    <input id="sp1-image" style={{display: 'none' }} type='file'/>
+                    <span className="input-note">Required Size: 200x200 pixels</span>
+                    <button id="sp1-prev" type="button" className="btn btn-success pull-right" onClick={this.handlePreview} >
+                        Preview
+                    </button>
+                </div>
+                <div id="sp2">
+                    <h5>Headline</h5>
+                    <input id="sp2-header" type="text" className="form-control" placeholder="Text input" value={this.state.headline2} onChange={this.handleHeadLineChange2}/>
+                    <span className="input-note">Characters Left: 60</span>
                 
-                <h5>Headline</h5>
-                <input type="text" className="form-control" placeholder="Text input" value={this.state.headline2} onChange={this.handleHeadLineChange2}/>
-                <span className="input-note">Characters Left: 60</span>
-            
-                <h5>Body</h5>
-                <textarea className="form-control" rows="3" value={this.state.body2} onChange={this.handleBodyChange2}></textarea>
-                <span className="input-note">Characters Left: 175</span>
-                <div className="clearfix"></div>
-                
-                <h5>Image</h5>
-                <a href="#" className="btn btn-primary btn-block">
-                <i className="fa fa-upload"></i> Upload Image
-                </a>
-                <span className="input-note">Required Size: 200x200 pixels</span>
-                <button type="submit" className="btn btn-success pull-right" onClick={this.handlePreview2} >
-                    Preview
-                </button>
+                    <h5>Body</h5>
+                    <textarea id="sp2-body" className="form-control" rows="3" value={this.state.body2} onChange={this.handleBodyChange2}></textarea>
+                    <span className="input-note">Characters Left: 175</span>
+                    <div className="clearfix"></div>
+                    
+                    <h5>Image</h5>
+                    <button id="sp2-btn" className="btn btn-primary btn-block" onClick={this.openFileBrowser}>
+                        <i className="fa fa-upload"></i> Upload Image
+                    </button>
+                    <input id="sp2-image" style={{display: 'none' }} type='file'/>
+                    <span className="input-note">Required Size: 200x200 pixels</span>
+                    <button id="sp2-prev" type="submit" className="btn btn-success pull-right" onClick={this.handlePreview} >
+                        Preview
+                    </button>
+                </div>
             </div>
         );
     }

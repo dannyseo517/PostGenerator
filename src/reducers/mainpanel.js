@@ -1,16 +1,11 @@
 const prev = (state = {}, action) => {
     switch(action.type){
-        case 'ADD_ADSPOT1':
+        case 'ADD_ADSPOT':
             return {
-                headline1: action.headline1,
-                body1: action.body1,
-                image1: action.image1
-            }
-        case 'ADD_ADSPOT2':
-            return {
-                headline2: action.headline2,
-                body2: action.body2,
-                image2: action.image2
+                id: action.id, 
+                headline: action.headline,
+                body: action.body,
+                image: action.image
             }
         default:
             return state
