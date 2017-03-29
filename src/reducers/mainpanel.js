@@ -7,6 +7,10 @@ const prev = (state = {}, action) => {
                 body: action.body,
                 image: action.image
             }
+        case 'SET_TEMPLATE':
+            return {
+                template: action.template
+            }
         default:
             return state
     }

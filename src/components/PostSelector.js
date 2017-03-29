@@ -1,29 +1,34 @@
 import React, {Component} from 'react';
-import SponsorPost from './SponsorPost';
-
+import {connect} from 'react-redux'
+import PostInputs from './PostInputs';
+import {templateType} from '../actions'
 
 
 class PostSelector extends Component{
     constructor(props){
         super(props);
         this.state = {
-            content: <SponsorPost />
+            content: <PostInputs />
         };
 
         this.handleChange = this.handleChange.bind(this);
-        
+        this.props.dispatch;
     }
 
     
     handleChange(event){
+        const {dispatch} = this.props
         this.setState({value: event.target.value});
         
         if(event.target.value == "WebsiteSponsorPost"){
-            this.state.content = <SponsorPost />;
+            this.state.content = <PostInputs />;
         }
         if(event.target.value == "DigestSponsorPost" || event.target.value == "HeroPlacement"){
-            this.state.content = <SponsorPost />;
+            this.state.content = <PostInputs />;
         }
+        
+        this.props.dispatch(templateType(event.target.value));
+
     }
 
     
@@ -43,5 +48,12 @@ class PostSelector extends Component{
         );
     }
 }
+
+const mapStateToProps = store => {
+    return {
+    }
+}
+
+PostSelector = connect(mapStateToProps)(PostSelector)
 
 export default PostSelector;

@@ -18,7 +18,7 @@ class Header extends Component {
               </a>
             </div>   
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul id="menu-kessel-primary" className="nav navbar-nav kessel-main-menu">
+              {/*<ul id="menu-kessel-primary" className="nav navbar-nav kessel-main-menu">
                 <li>
                   <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     Tools <i className="fa fa-caret-down"></i>
@@ -29,7 +29,7 @@ class Header extends Component {
                     </li>
                   </ul>
                 </li>
-              </ul>
+              </ul>*/}
               <ul className="infomine-nav nav navbar-nav navbar-right">
                 <li id="AuthSignIn"><a href="https://account.infomine.com/signin/">Sign In</a></li>
                 <li id="AuthSignInOut" className="dropdown">

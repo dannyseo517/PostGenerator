@@ -45,7 +45,6 @@ class DigestTemplate extends Component{
         var sponsorlineheight = 21;
         var multiline = false;
 
-        console.log(this.props);
         
         if(this.props.image != null){
             var file = this.props.image;
