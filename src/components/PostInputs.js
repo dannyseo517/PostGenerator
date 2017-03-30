@@ -26,9 +26,11 @@ class PostInputs extends Component{
         this.handleBodyChange2 = this.handleBodyChange2.bind(this);
         this.handleHeadLineChange3 = this.handleHeadLineChange3.bind(this);
         this.handleBodyChange3 = this.handleBodyChange3.bind(this);
+        this.handleImageChange = this.handleImageChange.bind(this);
         this.handlePreview = this.handlePreview.bind(this);
         this.openFileBrowser = this.openFileBrowser.bind(this);
         this.props.dispatch;
+        
         
     }
 
@@ -70,18 +72,19 @@ class PostInputs extends Component{
     handlePreview(event){
         const {dispatch} = this.props
         event.preventDefault();
-        var h, b;
-        var targetid = document.getElementById(event.target.id).parentNode.id;
-        if(targetid == "sp1"){h = this.state.headline1; b = this.state.body1}
-        if(targetid == "sp2"){h = this.state.headline2; b = this.state.body2}
-        if(targetid == "sp3"){h = this.state.headline3; b = this.state.body3}
-        
-        this.props.dispatch(addAdSpot(targetid, 
-            h, b, document.getElementById((document.getElementById(event.target.id).parentNode.id + '-image')).files[0]));
+        this.props.dispatch(addAdSpot(this.state.headline1, this.state.headline2, this.state.headline3,
+                                      this.state.body1, this.state.body2, this.state.body3,
+                                      this.state.image1, this.state.image2, this.state.image3));
         
     }
     openFileBrowser(event){
         document.getElementById((document.getElementById(event.target.id).parentNode.id + '-image')).click();
+    }
+    handleImageChange(event){
+        if(event.target.id.includes("sp1")){this.setState({image1: event.target.files[0]})}
+        if(event.target.id.includes("sp2")){this.setState({image2: event.target.files[0]})}
+        if(event.target.id.includes("sp3")){this.setState({image3: event.target.files[0]})}
+
     }
     render(){
         return(
@@ -101,14 +104,16 @@ class PostInputs extends Component{
                     <button id="sp1-btn" className="btn btn-primary btn-block" onClick={this.openFileBrowser}>
                         <i className="fa fa-upload"></i> Upload Image
                     </button>
-                    <input id="sp1-image" style={{display: 'none' }} type='file'/>
-                    <span className="input-note">Required Size: 200x200 pixels</span>
-                    <button id="sp1-prev" type="button" className="btn btn-success pull-right" onClick={this.handlePreview} >
-                        Preview
-                    </button>
+                    <input id="sp1-image" style={{display: 'none' }} type='file' onChange={this.handleImageChange}/>
+                    <span className="input-note">{this.state.image1.name}</span>
+                    <span className="input-note">Required Size: 100x100 pixels</span>
+                    
                     <div className="clearfix"></div>
                 </div>
                 
+                {/*Remove on Website Sponsor Post*/}
+                {this.props.template == "WebsiteSponsorPost"? "" : 
+                <div>
                 <div id="sp2">
                     <h5>Headline</h5>
                     <input id="sp2-header" type="text" className="form-control" placeholder="Text input" value={this.state.headline2} onChange={this.handleHeadLineChange2}/>
@@ -122,15 +127,11 @@ class PostInputs extends Component{
                     <button id="sp2-btn" className="btn btn-primary btn-block" onClick={this.openFileBrowser}>
                         <i className="fa fa-upload"></i> Upload Image
                     </button>
-                    <input id="sp2-image" style={{display: 'none' }} type='file'/>
-                    <span className="input-note">Required Size: 200x200 pixels</span>
-                    <button id="sp2-prev" type="submit" className="btn btn-success pull-right" onClick={this.handlePreview} >
-                        Preview
-                    </button>
+                    <input id="sp2-image" style={{display: 'none' }} type='file' onChange={this.handleImageChange}/>
+                    <span className="input-note">{this.state.image2.name}</span>
+                    <span className="input-note">Required Size: 100x100 pixels</span>
                     <div className="clearfix"></div>
                 </div>
-                {/*Remove on Website Sponsor Post*/}
-                {this.props.template == "WebsiteSponsorPost"? "" : 
                 <div id="sp3">
                     <h5>Headline</h5>
                     <input id="sp3-header" type="text" className="form-control" placeholder="Text input" value={this.state.headline3} onChange={this.handleHeadLineChange3}/>
@@ -144,14 +145,20 @@ class PostInputs extends Component{
                     <button id="sp3-btn" className="btn btn-primary btn-block" onClick={this.openFileBrowser}>
                         <i className="fa fa-upload"></i> Upload Image
                     </button>
-                    <input id="sp3-image" style={{display: 'none' }} type='file'/>
-                    <span className="input-note">Required Size: 200x200 pixels</span>
-                    <button id="sp3-prev" type="submit" className="btn btn-success pull-right" onClick={this.handlePreview} >
-                        Preview
-                    </button>
+                    <input id="sp3-image" style={{display: 'none' }} type='file' onChange={this.handleImageChange}/>
+                    <span className="input-note">{this.state.image3.name}</span>
+                    <span className="input-note">Required Size: 100x100 pixels</span>
                     <div className="clearfix"></div>
                 </div>
+                </div>
                 }
+
+                <button id="sp1-prev" type="button" className="btn btn-success btn-block" onClick={this.handlePreview} >
+                    Preview
+                </button>
+                <button id="sp1-submit" type="button" className="btn btn-success btn-block" onClick={this.handlePreview} >
+                    Send
+                </button>
             </div>
         );
     }
@@ -159,7 +166,7 @@ class PostInputs extends Component{
 
 const mapStateToProps = store => {
     return {
-        template: store.mainpanel.template == null ? "WebsiteSponsorPost" : store.mainpanel.template
+        template: store.template.template == null ? "WebsiteSponsorPost" : store.template.template
     }
 }
 

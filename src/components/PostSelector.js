@@ -8,11 +8,12 @@ class PostSelector extends Component{
     constructor(props){
         super(props);
         this.state = {
-            content: <PostInputs />
+            content: <PostInputs id="wsp"/>
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.props.dispatch;
+        this.props.dispatch(templateType("WebsiteSponsorPost"));
     }
 
     
@@ -21,10 +22,10 @@ class PostSelector extends Component{
         this.setState({value: event.target.value});
         
         if(event.target.value == "WebsiteSponsorPost"){
-            this.state.content = <PostInputs />;
+            this.state.content = <PostInputs id="wsp"/>;
         }
         if(event.target.value == "DigestSponsorPost" || event.target.value == "HeroPlacement"){
-            this.state.content = <PostInputs />;
+            this.state.content = <PostInputs id="dsp"/>;
         }
         
         this.props.dispatch(templateType(event.target.value));

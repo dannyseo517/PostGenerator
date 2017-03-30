@@ -1,11 +1,23 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import CanvasCreator from './CanvasCreator'
 
 class WebSiteTemplate extends Component{
     constructor(props){
         super(props);
         
     }
+
+    setBackgroundImage(img){
+        var reader = new FileReader();
+        reader.onloadend = function(){
+            document.getElementById('bg').style.backgroundImage = "url(" + reader.result + ")";
+        }
+        if(img){
+            reader.readAsDataURL(img);
+        }    
+    }
+
     render(){
         return(
             <div>
@@ -49,21 +61,25 @@ class WebSiteTemplate extends Component{
                             <div className="kesselFeatured kesselFeatured-small">
                                 <a href="http://www.mining.com/trump-signs-executive-order-undoing-obamas-clean-power-plan/">
                                 <div className="kesselFeatured-cover"></div>
-                                <div className="kesselFeatured-background"></div>
-                                <h3>{this.props.headline && this.props.id == "sp1" ? this.props.headline:"Your Title Here"}</h3>
+                                <div id="bg" className="kesselFeatured-background"></div>
+                                {this.setBackgroundImage(this.props.image1)}
+                                <h3>{this.props.headline1 && this.props.template=="WebsiteSponsorPost" ? this.props.headline1:"Your Title Here"}</h3>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         )
     }
 }
 const mapStateToProps = state => {
+   
     return{
-        id: state.mainpanel.id,
-        headline: state.mainpanel.headline
+        headline1: state.mainpanel.headline1,
+        image1: state.mainpanel.image1,
+        template: state.template.template
     }
     
 }

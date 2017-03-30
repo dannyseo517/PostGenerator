@@ -8,9 +8,6 @@ require( '../../public/assets/css/mainpanel.css');
 class MainPanel extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            template: <DigestTemplate/>
-        };
     }
     render(){
         return (
@@ -23,20 +20,16 @@ class MainPanel extends Component{
 }
 
 const mapStateToProps = state => {
-    
-    if(state.mainpanel.template == "WebsiteSponsorPost"){
+    if(state.template.template == "WebsiteSponsorPost"){
         return{
             template: <WebSiteTemplate />
         }
-    }if(state.mainpanel.template == "DigestSponsorPost"){
+    }if(state.template.template == "DigestSponsorPost"){
         return{
             template: <DigestTemplate/>
         }
-    }else{
-        return{
-            template: <WebSiteTemplate />
-        }
     }
+    return{}
 }
 
 MainPanel = connect(mapStateToProps)(MainPanel)

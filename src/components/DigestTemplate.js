@@ -1,102 +1,19 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import CanvasCreator from './CanvasCreator'
 require( '../../public/assets/css/digesttemplate.css');
 
-function wrapText(context,text,x,y,maxWidth,lineHeight) {
-    var words = text.split(' ');
-    var line = '';
-    var secondline = false;
-    for(var n = 0; n < words.length; n++) {
-      var testLine = line + words[n] + ' ';
-      var metrics = context.measureText(testLine);
-      var testWidth = metrics.width;
-      if (testWidth > maxWidth && n > 0) {
-        context.fillText(line, x, y);
-        line = words[n] + ' ';
-        y += lineHeight;
-        secondline = true;
-      }
-      else {
-        line = testLine;
-      }
-    }
-    context.fillText(line, x, y);
-    return secondline;
-}
+
 
 class DigestTemplate extends Component{
     constructor(props){
         super(props);
 
     }
-    createImage(){
-        var gutter = 14;
-        var imgwidth = 150;
-        var imgheight = 150;
-        var topy = 20;
-        var headerlineheight=25;
-        var canvaswidth = 615;
-        var canvasheight = 150;
-        var textxstart = imgwidth+gutter;
-        var textxstop = canvaswidth-imgwidth-gutter;
-        var mainlineheight = 21;
-        var mainy = 77;
-        var footery = 140;
-        var sponsorlineheight = 21;
-        var multiline = false;
-
-        
-        if(this.props.image != null){
-            var file = this.props.image;
-            var h1 = this.props.headline;
-            var b1 = this.props.body;
-            
-            var div = document.getElementById(this.props.id + '-div');
-            var canvas = document.createElement("canvas");
-            canvas.id = "sp1-canvas";
-
-            var fr = new FileReader();
-
-            fr.onload = function(){
-                var ctx = canvas.getContext('2d');
-                ctx.canvas.width = canvaswidth;
-                ctx.canvas.height = canvasheight;
-                ctx.clearRect(0, 0, canvaswidth, canvasheight);
-                var img = new Image();
-                img.onload = function(){
-                    ctx.drawImage(img, 0,0,150,150);
-                    // add header and body text
-                    ctx.font = "bold 20px Arial";
-                    ctx.fillStyle = '#044869';
-                    var titleText = h1;
-                    multiline = wrapText(ctx,titleText,textxstart,topy,textxstop,headerlineheight);
-                    if (!multiline) {
-                        mainy = mainy - headerlineheight;
-                    }
-                    ctx.font = "14px Arial";
-                    ctx.fillStyle = '#333333';
-                    var bodyText = b1;
-                    multiline = wrapText(ctx,bodyText,textxstart,mainy,textxstop,mainlineheight);
-                    //sponsor footer
-                    ctx.fillStyle = '#cccccc';
-                    ctx.fillText("SPONSOR",textxstart,footery,textxstop);
-                    div.innerHTML = "";
-                    div.appendChild(canvas);
-
-                }
-                
-                img.src = fr.result;
-            }
-            fr.readAsDataURL(file);
-        }
-        
-    }
-    
     
     render(){
         return(
             <table className="tableContainer">
-                {this.createImage()}
                 <tbody>
                     <tr>
                         <td className="centerContainer">
@@ -235,6 +152,7 @@ class DigestTemplate extends Component{
                                         <td>
                                             <a href="#"> 
                                                 <div id="sp1-div">
+                                                    <CanvasCreator id="1" file={this.props.image1} headline={this.props.headline1} body={this.props.body1} />
                                                 </div>
                                             </a>
                                         </td>
@@ -453,6 +371,7 @@ class DigestTemplate extends Component{
                                                         <td>
                                                             <a href="#"> 
                                                                 <div id="sp2-div">
+                                                                    <CanvasCreator id="2" file={this.props.image2} headline={this.props.headline2} body={this.props.body2} />
                                                                 </div>
                                                             </a>
                                                         </td>
@@ -546,6 +465,7 @@ class DigestTemplate extends Component{
                                         <td>
                                             <a href="#"> 
                                                 <div id="sp3-div">
+                                                    <CanvasCreator id="3" file={this.props.image3} headline={this.props.headline3} body={this.props.body3} />
                                                 </div>
                                             </a>
                                         </td>
@@ -754,11 +674,17 @@ class DigestTemplate extends Component{
 }
 
 const mapStateToProps = state => {
+    console.log(state)
     return{
-        headline: state.mainpanel.headline,
-        body: state.mainpanel.body,
-        image: state.mainpanel.image,
-        id: state.mainpanel.id
+        headline1: state.mainpanel.headline1,
+        body1: state.mainpanel.body1,
+        image1: state.mainpanel.image1,
+        headline2: state.mainpanel.headline2,
+        body2: state.mainpanel.body2,
+        image2: state.mainpanel.image2,
+        headline3: state.mainpanel.headline3,
+        body3: state.mainpanel.body3,
+        image3: state.mainpanel.image3
     }
     
 }
