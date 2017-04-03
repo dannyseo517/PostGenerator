@@ -42,7 +42,7 @@ class CanvasCreator extends Component{
         var footery = 140;
         var sponsorlineheight = 21;
         var multiline = false;
-        
+        console.log(file)
         if(file){
             var div = document.getElementById(id);
             var canvas = document.createElement("canvas");

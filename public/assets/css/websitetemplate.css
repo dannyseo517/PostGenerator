@@ -1,0 +1,49 @@
+.sidekick300x600{
+    display:block;
+    width:300px;
+    height:600px;
+    background-color:#475;
+    margin-bottom: 30px;
+    font-family: "Roboto Slab",Georgia,"Times New Roman",Times,serif;
+    font-weight: 300;
+    font-size: 30px;
+    text-align: center;
+    color:white;
+    line-height: 600px;
+    
+}
+
+.sidekick300x250{
+    display:block;
+    width:300px;
+    height:250px;
+    line-height: 250px;
+    text-align: center;
+    background-color:#FF3312;
+    margin-bottom: 30px;
+    font-family: "Roboto Slab",Georgia,"Times New Roman",Times,serif;
+    font-weight: 300;
+    font-size: 30px;
+    color:white;
+}
+
+
+
+.billboard970x90 {
+    display:block;
+    margin:0 auto;
+    height: 90px;
+    width:970px;
+    line-height: 90px;
+    text-align: center;
+    background-color:  #f69c55;
+    color:white;
+    margin-bottom:30px;
+    font-family: "Roboto Slab",Georgia,"Times New Roman",Times,serif;
+    font-weight: 300;
+    font-size: 30px;
+}
+
+
+
+/* If the text has multiple lines, add the following: */
