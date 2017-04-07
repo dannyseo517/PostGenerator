@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import {addAdSpot} from '../actions'
 import {connect} from 'react-redux'
+import CustomModal from './SendModal'
 require( '../../public/assets/css/postinputs.css');
 
 var MAX_HEADLINE = 60;
 var MAX_BODY = 175;
+
+
 
 function checkFileDimensions(file, callback){
     var fr = new FileReader;
@@ -26,17 +29,10 @@ class PostInputs extends Component{
     constructor(props){
         super(props);
         this.state = {
-            headline1: '',
-            body1: '', 
-            image1: '',
-            headline2: '',
-            body2: '',
-            image2: '',
-            headline3: '',
-            body3: '',
-            image3: '',
-            headline4: '',
-            image4: '',
+            headline1: '',headline2: '', headline3: '',headline4: '' ,
+            body1: '', body2: '', body3: '',
+            image1: '', image2: '', image3: '', image4: '',
+            url1: '', url2: '', url3: '', url4: '',
             image1error: '', image2error: '', image3error: ''
 
         }
@@ -50,9 +46,9 @@ class PostInputs extends Component{
         this.handleImageChange = this.handleImageChange.bind(this);
         this.handlePreview = this.handlePreview.bind(this);
         this.openFileBrowser = this.openFileBrowser.bind(this);
+        this.handleSend = this.handleSend.bind(this);
+        this.handleUrlChange = this.handleUrlChange.bind(this);
         this.props.dispatch;
-        
-        
     }
 
     handleHeadLineChange1(event){
@@ -96,9 +92,17 @@ class PostInputs extends Component{
             this.setState({headline4: event.target.value})
         }
     }
+
+    handleUrlChange(event){
+        if(event.target.id == "url1"){this.setState({url1: event.target.value})}
+        if(event.target.id == "url2"){this.setState({url2: event.target.value})}
+        if(event.target.id == "url3"){this.setState({url3: event.target.value})}
+        if(event.target.id == "url4"){this.setState({url4: event.target.value})}
+    }
+
     handlePreview(event){
+        console.log("hello");
         const {dispatch} = this.props
-        event.preventDefault();
         this.props.dispatch(addAdSpot(this.state.headline1, this.state.body1, this.state.image1,
                                       this.state.headline2, this.state.body2, this.state.image2,
                                       this.state.headline3, this.state.body3, this.state.image3,
@@ -114,9 +118,7 @@ class PostInputs extends Component{
         var file = event.target.files[0];
         var target = event.target.id;
         
-        
         checkFileDimensions(event.target.files[0], function(ret){
-            
             if(ret == "true"){
                 if(target.includes("sp1")){that.setState({image1: file, image1error: ""})}
                 if(target.includes("sp2")){that.setState({image2: file, image2error: ""})}
@@ -131,11 +133,16 @@ class PostInputs extends Component{
             }
             
         })
-            
-        
-        
+    }
+
+    handleSend(event){
+        var canvas1 = document.getElementById("canvas-d1");
+        // return $.getJSON('http://localhost:4000/send?from='+canvas1.toDataURL('image/jpeg'))
+
     }
     
+    
+
     render(){
         return(
             <div className="WebSP">
@@ -166,6 +173,9 @@ class PostInputs extends Component{
                         <input id="sp1-header" type="text" className="form-control" placeholder="Text input" value={this.state.headline1} onChange={this.handleHeadLineChange1}/>
                         <span className="input-note" style={{color: this.state.headline1.length==MAX_HEADLINE ? "red" : ""}}>Characters Left: {MAX_HEADLINE-this.state.headline1.length}</span>
                         
+                        <h5>Link</h5>
+                        <input id="sp1-url" type="text" className="form-control" placeholder="Text input" value={this.state.url1} onChange={this.handleUrlChange}/>
+                        
                         <h5>Body</h5>
                         <textarea id="sp1-body" className="form-control" rows="3" value={this.state.body1} onChange={this.handleBodyChange1}></textarea>
                         <span className="input-note"style={{color: this.state.body1.length==MAX_BODY ? "red" : ""}}>Characters Left: {MAX_BODY-this.state.body1.length}</span>
@@ -186,6 +196,9 @@ class PostInputs extends Component{
                         <input id="sp2-header" type="text" className="form-control" placeholder="Text input" value={this.state.headline2} onChange={this.handleHeadLineChange2}/>
                         <span className="input-note"style={{color: this.state.headline2.length==MAX_HEADLINE ? "red" : ""}}>Characters Left: {MAX_HEADLINE-this.state.headline2.length}</span>
                     
+                        <h5>Link</h5>
+                        <input id="sp2-url" type="text" className="form-control" placeholder="Text input" value={this.state.url2} onChange={this.handleUrlChange}/>
+                        
                         <h5>Body</h5>
                         <textarea id="sp2-body" className="form-control" rows="3" value={this.state.body2} onChange={this.handleBodyChange2}></textarea>
                         <span className="input-note"style={{color: this.state.body2.length==MAX_BODY ? "red" : ""}}>Characters Left: {MAX_BODY-this.state.body2.length}</span>
@@ -204,6 +217,9 @@ class PostInputs extends Component{
                         <input id="sp3-header" type="text" className="form-control" placeholder="Text input" value={this.state.headline3} onChange={this.handleHeadLineChange3}/>
                         <span className="input-note"style={{color: this.state.headline3.length==MAX_HEADLINE ? "red" : ""}}>Characters Left: {MAX_HEADLINE-this.state.headline3.length}</span>
                     
+                        <h5>Link</h5>
+                        <input id="sp3-url" type="text" className="form-control" placeholder="Text input" value={this.state.url3} onChange={this.handleUrlChange}/>
+                        
                         <h5>Body</h5>
                         <textarea id="sp3-body" className="form-control" rows="3" value={this.state.body3} onChange={this.handleBodyChange3}></textarea>
                         <span className="input-note"style={{color: this.state.body3.length==MAX_BODY ? "red" : ""}}>Characters Left: {MAX_BODY-this.state.body3.length}</span>
@@ -223,9 +239,11 @@ class PostInputs extends Component{
                 <button id="sp1-prev" type="button" className="btn btn-success btn-block" onClick={this.handlePreview} >
                     Preview
                 </button>
-                <button id="sp1-submit" type="button" className="btn btn-success btn-block" onClick={this.handlePreview} >
-                    Send
-                </button>
+
+                <div id="modal">
+                    <CustomModal handlePreview={this.handlePreview}/>    
+                </div>
+                    
             </div>
         );
     }

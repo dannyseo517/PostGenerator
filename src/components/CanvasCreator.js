@@ -42,7 +42,6 @@ class CanvasCreator extends Component{
         var footery = 140;
         var sponsorlineheight = 21;
         var multiline = false;
-        console.log(file)
         if(file){
             var div = document.getElementById(id);
             var canvas = document.createElement("canvas");
@@ -53,7 +52,8 @@ class CanvasCreator extends Component{
                 var ctx = canvas.getContext('2d');
                 ctx.canvas.width = canvaswidth;
                 ctx.canvas.height = canvasheight;
-                ctx.clearRect(0, 0, canvaswidth, canvasheight);
+                ctx.fillStyle = '#ffffff'
+                ctx.fillRect(0, 0, canvaswidth, canvasheight);
                 var img = new Image();
                 img.onload = function(){
                     ctx.drawImage(img, 0,0,150,150);
@@ -76,8 +76,6 @@ class CanvasCreator extends Component{
                         div.innerHTML = "";
                         div.appendChild(canvas);
                     }
-                    
-
                 }
                 
                 img.src = fr.result;

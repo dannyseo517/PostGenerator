@@ -152,7 +152,7 @@ class DigestTemplate extends Component{
                                         <td>
                                             <a href="#"> 
                                                 <div id="sp1-div">
-                                                    <CanvasCreator id="1" file={this.props.image1} headline={this.props.headline1} body={this.props.body1} />
+                                                    <CanvasCreator id="d1" file={this.props.image1} headline={this.props.headline1} body={this.props.body1} />
                                                 </div>
                                             </a>
                                         </td>
