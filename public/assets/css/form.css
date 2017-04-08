@@ -35,3 +35,8 @@
     width: 26%;
     margin-top:20px;
 }
+
+.errorMsg{
+    color:red;
+    font-weight: bold;
+}

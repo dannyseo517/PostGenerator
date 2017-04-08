@@ -17,3 +17,15 @@
 .pull-right{
     margin: 15px 0 0;
 }
+
+.radios > h5{
+    margin: 15px 0 5px;
+    color: #005086;
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#sp1-prev{
+    margin-top:20px;
+}

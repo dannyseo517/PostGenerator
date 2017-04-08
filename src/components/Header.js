@@ -30,7 +30,7 @@ class Header extends Component {
                   </ul>
                 </li>
               </ul>*/}
-              <ul className="infomine-nav nav navbar-nav navbar-right">
+              {/*<ul className="infomine-nav nav navbar-nav navbar-right">
                 <li id="AuthSignIn"><a href="https://account.infomine.com/signin/">Sign In</a></li>
                 <li id="AuthSignInOut" className="dropdown">
                   <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"></a>
@@ -41,7 +41,7 @@ class Header extends Component {
                   </ul>
                 </li>
                 <li id="AuthRegister"><a href="https://account.infomine.com/join/">Join</a></li>
-              </ul>
+              </ul>*/}
             </div>
           </div>
         </div>

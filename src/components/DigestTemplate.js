@@ -9,10 +9,13 @@ class DigestTemplate extends Component{
     constructor(props){
         super(props);
 
+
     }
+
     
     render(){
         return(
+            
             <table className="tableContainer">
                 <tbody>
                     <tr>
@@ -150,11 +153,10 @@ class DigestTemplate extends Component{
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="#"> 
-                                                <div id="sp1-div">
-                                                    <CanvasCreator id="d1" file={this.props.image1} headline={this.props.headline1} body={this.props.body1} />
-                                                </div>
-                                            </a>
+                                            <div id="sp1-div">
+                                                {this.props.spot == "1" ? <CanvasCreator id="1" file={this.props.image} headline={this.props.headline} body={this.props.body} url={this.props.url}/> : ""}
+                                            </div>
+                                            
                                         </td>
                                     </tr>
                                     <tr>
@@ -371,7 +373,7 @@ class DigestTemplate extends Component{
                                                         <td>
                                                             <a href="#"> 
                                                                 <div id="sp2-div">
-                                                                    <CanvasCreator id="2" file={this.props.image2} headline={this.props.headline2} body={this.props.body2} />
+                                                                    {this.props.spot == "2" ? <CanvasCreator id="2" file={this.props.image} headline={this.props.headline} body={this.props.body} url={this.props.url}/> : ""}
                                                                 </div>
                                                             </a>
                                                         </td>
@@ -465,7 +467,7 @@ class DigestTemplate extends Component{
                                         <td>
                                             <a href="#"> 
                                                 <div id="sp3-div">
-                                                    <CanvasCreator id="3" file={this.props.image3} headline={this.props.headline3} body={this.props.body3} />
+                                                    {this.props.spot == "3" ? <CanvasCreator id="3" file={this.props.image} headline={this.props.headline} body={this.props.body} url={this.props.url}/> : ""}
                                                 </div>
                                             </a>
                                         </td>
@@ -674,17 +676,13 @@ class DigestTemplate extends Component{
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return{
-        headline1: state.mainpanel.headline1,
-        body1: state.mainpanel.body1,
-        image1: state.mainpanel.image1,
-        headline2: state.mainpanel.headline2,
-        body2: state.mainpanel.body2,
-        image2: state.mainpanel.image2,
-        headline3: state.mainpanel.headline3,
-        body3: state.mainpanel.body3,
-        image3: state.mainpanel.image3
+        headline: state.mainpanel.headline,
+        body: state.mainpanel.body,
+        image: state.mainpanel.image,
+        url: state.mainpanel.url,
+        spot: state.adspot.spot,
+        id: state.mainpanel.id
     }
     
 }

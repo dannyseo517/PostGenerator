@@ -87,7 +87,6 @@ class CanvasCreator extends Component{
 
     render(){
         return(
-            
             <div id={this.props.id}>
                 {this.createImage(this.props.id, this.props.file, this.props.headline, this.props.body)}
             </div>

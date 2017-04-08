@@ -21,7 +21,7 @@ class WebSiteTemplate extends Component{
     renderSponsorPost(spid, headline, body, image){
         if(headline && body && image){
             return(
-                <div className="kesselPost sponsor-post hidden-print">
+                <div id={"div-" + spid} className="kesselPost sponsor-post hidden-print">
                     <div id="div-gpt-ad-1484094031880-0" data-google-query-id="CN7-9LOx_9ICFc9rfgodgj0CWw">
                         <div id="google_ads_iframe_/1043744/MINING.com_Sponsor-Website-Post_01_0__container__" style={{border: '0pt none', display: 'inline-block; width: 100%', height: 'auto',}}>
                             <div className="featured-image">
@@ -114,7 +114,7 @@ class WebSiteTemplate extends Component{
                                         </div>
                                     </div>
                                 </div>
-                                {this.renderSponsorPost("wsp1", this.props.headline1, this.props.body1, this.props.image1)}
+                                {this.props.spot == "1" ? this.renderSponsorPost("wsp1", this.props.headline, this.props.body, this.props.image) : ""}
                                 <div className="kesselPost standard-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12 col-md-4">
@@ -160,7 +160,7 @@ class WebSiteTemplate extends Component{
                                         </div>
                                     </div>
                                 </div>
-                                {this.renderSponsorPost("wsp2", this.props.headline2, this.props.body2, this.props.image2)}
+                                {this.props.spot == "2" ? this.renderSponsorPost("wsp2", this.props.headline, this.props.body, this.props.image) : ""}
                                 <div className="kesselPost standard-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12 col-md-4">
@@ -206,7 +206,7 @@ class WebSiteTemplate extends Component{
                                         </div>
                                     </div>
                                 </div>
-                                {this.renderSponsorPost("wsp3", this.props.headline3, this.props.body3, this.props.image3)}
+                                {this.props.spot == "3" ? this.renderSponsorPost("wsp3", this.props.headline, this.props.body, this.props.image) : ""}
                                 
                             </div>
                             
@@ -245,15 +245,11 @@ class WebSiteTemplate extends Component{
 
 const mapStateToProps = state => {
     return{
-        headline1: state.mainpanel.headline1,
-        body1: state.mainpanel.body1,
-        image1: state.mainpanel.image1,
-        headline2: state.mainpanel.headline2,
-        body2: state.mainpanel.body2,
-        image2: state.mainpanel.image2,
-        headline3: state.mainpanel.headline3,
-        body3: state.mainpanel.body3,
-        image3: state.mainpanel.image3
+        headline: state.mainpanel.headline,
+        body: state.mainpanel.body,
+        image: state.mainpanel.image,
+        spot: state.adspot.spot,
+        id: state.mainpanel.id
     }
 }
 

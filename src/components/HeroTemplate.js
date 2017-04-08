@@ -63,8 +63,8 @@ class HeroTemplate extends Component{
                                 <a href="http://www.mining.com/trump-signs-executive-order-undoing-obamas-clean-power-plan/">
                                 <div className="kesselFeatured-cover"></div>
                                 <div id="bg" className="kesselFeatured-background"></div>
-                                {this.setBackgroundImage(this.props.image1)}
-                                <h3>{this.props.headline1 ? this.props.headline1:"Your Title Here"}</h3>
+                                {this.setBackgroundImage(this.props.image)}
+                                <h3>{this.props.headline ? this.props.headline:"Your Title Here"}</h3>
                                 </a>
                             </div>
                         </div>
@@ -76,10 +76,9 @@ class HeroTemplate extends Component{
     }
 }
 const mapStateToProps = state => {
-   console.log(state);
     return{
-        headline1: state.mainpanel.headline4,
-        image1: state.mainpanel.image4,
+        headline: state.mainpanel.headline,
+        image: state.mainpanel.image,
         template: state.template.template
     }
     

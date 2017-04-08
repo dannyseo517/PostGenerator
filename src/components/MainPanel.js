@@ -12,8 +12,7 @@ class MainPanel extends Component{
 
     render(){
         return (
-            
-            <div className="mainpanel" style={{overflow:'scroll'}}>
+            <div className="mainpanel">
                 {this.props.template}
             </div>
         )
