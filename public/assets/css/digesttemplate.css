@@ -148,7 +148,7 @@ p{
 
 .headerImage{
     padding: 5px;
-    background-image: url(http://www.mining.com/wp-content/themes/Kessel/digests/common/assets/images/template/header-bg.jpg);
+    background-image: url("/assets/images/header-bg.jpg");
     background-repeat: repeat-x;
     background-position: bottom;
 }
@@ -187,6 +187,9 @@ p{
     font-family: Arial, sans-serif;
     text-align: center;
     width: 613px;
+
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .toollist > div{
@@ -206,4 +209,37 @@ p{
 
 .show{
     display: initial;
+}
+
+#readmore{
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #b9b9b9;
+    background: #e3ebef;
+    text-align: center;
+    line-height: 17px;
+}
+
+.botTextTD{
+    vertical-align: top;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.botTextTD > div{
+    font-family: Arial, sans-serif; 
+    font-size: 12px; 
+    line-height: 16px;
+}
+
+.disclaimerTD{
+    vertical-align: top;
+    font-size: 11px;
+    padding-bottom: 10px;
+}
+
+.disclaimerTD > div{
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    line-height: 15px;
 }

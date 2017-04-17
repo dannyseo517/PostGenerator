@@ -19,6 +19,7 @@ class WebSiteTemplate extends Component{
     }
     
     renderSponsorPost(spid, headline, body, image){
+        console.log("hello");
         if(headline && body && image){
             return(
                 <div id={"div-" + spid} className="kesselPost sponsor-post hidden-print">
@@ -50,7 +51,7 @@ class WebSiteTemplate extends Component{
                                 <span className="sr-only">Toggle navigation</span>
                                 <span className="fa fa-lg fa-bars"></span>
                                 </button>
-                                <a className="navbar-brand" href="/"><img src="http://www.mining.com/wp-content/themes/Kessel/images/MDC-site-logo.png" alt="MINING.com"/></a>
+                                <a className="navbar-brand" href="/"><img src="./assets/images/MDC-site-logo.png" alt="MINING.com"/></a>
                             </div>
 
                             <div className="navbar-collapse collapse in" id="bs-example-navbar-collapse-1" aria-expanded="true">
@@ -86,7 +87,7 @@ class WebSiteTemplate extends Component{
                                 <div className="kesselPost standard-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12 col-md-4">
-                                            <a href="#" className="image-link" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2016/12/Mt-Owen-coal-Australia-glencore.jpg")'}}></a>
+                                            <a href="#" className="image-link" style={{backgroundImage: 'url("./assets/images/d1.jpg")'}}></a>
                                         </div>
                                         <div className="post-content col-xs-12 col-md-8">
                                             <h3 className="post-headline"><a href="#">Thermal coal price rally to hold</a></h3>
@@ -102,7 +103,7 @@ class WebSiteTemplate extends Component{
                                 <div className="kesselPost image-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12">
-                                            <a href="#" className="image-link" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2017/03/fresh-incident-at-barricks-veladero-mine-in-argentina1.jpg")'}}></a>
+                                            <a href="#" className="image-link" style={{backgroundImage: 'url("./assets/images/f3.jpg")'}}></a>
                                         </div>
                                         <div className="post-content col-xs-12">
                                             <h3 className="post-headline"><a href="#">Fresh ‘incident’ at Barrick’s Veladero mine in Argentina</a></h3>
@@ -118,7 +119,7 @@ class WebSiteTemplate extends Component{
                                 <div className="kesselPost standard-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12 col-md-4">
-                                            <a href="#" className="image-link" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2016/12/Mt-Owen-coal-Australia-glencore.jpg")'}}></a>
+                                            <a href="#" className="image-link" style={{backgroundImage: 'url("./assets/images/d2.jpg")'}}></a>
                                         </div>
                                         <div className="post-content col-xs-12 col-md-8">
                                             <h3 className="post-headline"><a href="#">Thermal coal price rally to hold</a></h3>
@@ -133,7 +134,7 @@ class WebSiteTemplate extends Component{
                                 <div className="kesselPost standard-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12 col-md-4">
-                                            <a href="#" className="image-link" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2016/12/Mt-Owen-coal-Australia-glencore.jpg")'}}></a>
+                                            <a href="#" className="image-link" style={{backgroundImage: 'url("./assets/images/d3.jpg")'}}></a>
                                         </div>
                                         <div className="post-content col-xs-12 col-md-8">
                                             <h3 className="post-headline"><a href="#">Thermal coal price rally to hold</a></h3>
@@ -148,7 +149,7 @@ class WebSiteTemplate extends Component{
                                 <div className="kesselPost image-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12">
-                                            <a href="#" className="image-link" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2017/03/fresh-incident-at-barricks-veladero-mine-in-argentina1.jpg")'}}></a>
+                                            <a href="#" className="image-link" style={{backgroundImage: 'url("./assets/images/f1.jpg")'}}></a>
                                         </div>
                                         <div className="post-content col-xs-12">
                                             <h3 className="post-headline"><a href="#">Fresh ‘incident’ at Barrick’s Veladero mine in Argentina</a></h3>
@@ -164,7 +165,7 @@ class WebSiteTemplate extends Component{
                                 <div className="kesselPost standard-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12 col-md-4">
-                                            <a href="#" className="image-link" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2016/12/Mt-Owen-coal-Australia-glencore.jpg")'}}></a>
+                                            <a href="#" className="image-link" style={{backgroundImage: 'url("./assets/images/d4.jpg")'}}></a>
                                         </div>
                                         <div className="post-content col-xs-12 col-md-8">
                                             <h3 className="post-headline"><a href="#">Thermal coal price rally to hold</a></h3>
@@ -179,7 +180,7 @@ class WebSiteTemplate extends Component{
                                 <div className="kesselPost standard-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12 col-md-4">
-                                            <a href="#" className="image-link" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2016/12/Mt-Owen-coal-Australia-glencore.jpg")'}}></a>
+                                            <a href="#" className="image-link" style={{backgroundImage: 'url("./assets/images/d5.jpg")'}}></a>
                                         </div>
                                         <div className="post-content col-xs-12 col-md-8">
                                             <h3 className="post-headline"><a href="#">Thermal coal price rally to hold</a></h3>
@@ -194,7 +195,7 @@ class WebSiteTemplate extends Component{
                                 <div className="kesselPost image-post">
                                     <div className="row">
                                         <div className="featured-image col-xs-12">
-                                            <a href="#" className="image-link" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2017/03/fresh-incident-at-barricks-veladero-mine-in-argentina1.jpg")'}}></a>
+                                            <a href="#" className="image-link" style={{backgroundImage: 'url("./assets/images/f2.jpg")'}}></a>
                                         </div>
                                         <div className="post-content col-xs-12">
                                             <h3 className="post-headline"><a href="#">Fresh ‘incident’ at Barrick’s Veladero mine in Argentina</a></h3>

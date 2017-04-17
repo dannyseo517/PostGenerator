@@ -28,7 +28,7 @@ class HeroTemplate extends Component{
                             <div className="kesselFeatured kesselFeatured-big">
                                 <a href="#">
                                 <div className="kesselFeatured-cover"></div>
-                            <div className="kesselFeatured-background" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2017/03/fresh-incident-at-barricks-veladero-mine-in-argentina.jpg")'}}></div>
+                            <div className="kesselFeatured-background" style={{backgroundImage: 'url("./assets/images/h1.jpg")'}}></div>
                                 <h3>Fresh ‘incident’ at Barrick’s Veladero mine in Argentina</h3>
                                 </a>
                             </div>
@@ -38,7 +38,7 @@ class HeroTemplate extends Component{
                             <div className="kesselFeatured kesselFeatured-small">
                                 <a href="#">
                                 <div className="kesselFeatured-cover"></div>
-                                <div className="kesselFeatured-background" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2017/03/miners-to-spend-21-billion-in-exploration-by-2025.jpg")'}}></div>
+                                <div className="kesselFeatured-background" style={{backgroundImage: 'url("./assets/images/h2.jpg")'}}></div>
                                 <h3>Miners to spend $21 billion in exploration by 2025</h3>
                                 </a>
                             </div>
@@ -46,7 +46,7 @@ class HeroTemplate extends Component{
                             <div className="kesselFeatured kesselFeatured-small">
                                 <a href="#">
                                 <div className="kesselFeatured-cover"></div>
-                                <div className="kesselFeatured-background" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2017/03/eldorado-to-begin-production-at-its-greek-olympias-mine-by-year-end.jpg")'}}></div>
+                                <div className="kesselFeatured-background" style={{backgroundImage: 'url("./assets/images/h3.jpg")'}}></div>
                                 <h3>Eldorado to begin production at its Greek Olympias mine by year-end</h3>
                                 </a>
                             </div>
@@ -55,7 +55,7 @@ class HeroTemplate extends Component{
                             <div className="kesselFeatured kesselFeatured-small">
                                 <a href="#">
                                 <div className="kesselFeatured-cover"></div>
-                                <div className="kesselFeatured-background" style={{backgroundImage: 'url("http://www.mining.com/wp-content/uploads/2017/03/trump-signs-executive-order-undoing-obamas-clean-power-plan.jpg")'}}></div>
+                                <div className="kesselFeatured-background" style={{backgroundImage: 'url("./assets/images/h4.jpg")'}}></div>
                                 <h3>Trump signs executive order undoing Obama's clean power plan</h3>
                                 </a>
                             </div>

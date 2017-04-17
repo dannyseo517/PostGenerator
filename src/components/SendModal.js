@@ -126,7 +126,6 @@ class CustomModal extends Component {
     sendEmail(event){
         event.preventDefault();
         if(this.formValidator()){
-            console.log("hello");
             var param = ''
             param += 'from=' + this.state.senderName + '&email=' + this.state.senderEmail
             param += '&type=' + this.props.template.template
@@ -165,9 +164,6 @@ class CustomModal extends Component {
     }
     showPreview(){
         if(this.props.template.template=="DigestSponsorPost"){
-            var wtf=<CanvasCreator id="prev" file={this.props.mainpanel.image} headline={this.props.mainpanel.headline} body={this.props.mainpanel.body} url={this.props.mainpanel.url}/>
-
-            console.log(wtf);
             return(
                 <div>
                     <CanvasCreator id="prev" file={this.props.mainpanel.image} headline={this.props.mainpanel.headline} body={this.props.mainpanel.body} url={this.props.mainpanel.url}/>

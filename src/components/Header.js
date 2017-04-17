@@ -14,7 +14,7 @@ class Header extends Component {
                 <span className="fa fa-lg fa-bars"></span>
               </button>
               <a className="navbar-brand" href="/">
-                <img src="http://www.mining.com/wp-content/themes/Kessel/images/xMDC-site-logo.png.pagespeed.ic.2MptOhtLrt.webp" alt="MINING.com"/>
+                <img src="./assets/images/MDC-site-logo.png" alt="MINING.com"/>
               </a>
             </div>   
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

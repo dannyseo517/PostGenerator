@@ -9,15 +9,23 @@ var MAX_BODY = 175;
 
 
 
-function checkFileDimensions(file, callback){
+function checkFileDimensions(type, file, callback){
     var fr = new FileReader;
     fr.onload = function() { // file is loaded
         var img = new Image;
         img.onload = function() {
-            if(img.width == img.height){
-                if(callback){callback("true")}
-            }else{
-                if(callback){callback("false")}
+            if(type=="HeroPlacement"){
+                if(img.width > 800 && img.height > 540){
+                    if(callback){callback("true")}
+                    }else{if(callback){callback("false")}
+                }
+            }
+            else{
+                if(img.width == img.height){
+                    if(callback){callback("true")}
+                }else{
+                    if(callback){callback("false")}
+                }
             }
         };
         img.src = fr.result; // is the data URL because called with readAsDataURL
@@ -78,13 +86,13 @@ class PostInputs extends Component{
         var that = this;
         var file = event.target.files[0];
         var target = event.target.id;
-        
-        checkFileDimensions(event.target.files[0], function(ret){
+        var type = this.props.template;
+        checkFileDimensions(type, event.target.files[0], function(ret){
             if(ret == "true"){
                 that.setState({image: file, imageerror: "",ierr: "", imagebool: true})
             }
             else{
-                that.setState({image: "", imageerror: "image must be square", imagebool: false})
+                that.setState({image: "", imageerror: "Please see the image size below", imagebool: false})
             }
             
         })
@@ -110,9 +118,18 @@ class PostInputs extends Component{
         return true;
     }
 
+    componentWillReceiveProps (nextProps){
+        if(nextProps.id=="hsp"){
+            this.setState({imagebool:false, image: false, imageerror:"", ierr:""})
+            this.props.dispatch(addAdSpot(this.state.headline, this.state.body, "", this.state.url));
+        }
+    }
+    
+
     render(){
         return(
             <div className="WebSP">
+                
                 <div>
                     <div id="sp1">
                         <h5>Headline</h5>
@@ -139,7 +156,9 @@ class PostInputs extends Component{
                         <input id="sp1-image" style={{display: 'none' }} type='file' onChange={this.handleImageChange}/>
                         <span className="input-note">{this.state.image.name}</span>
                         <span className="input-note" style={{color:'red'}}>{this.state.imageerror}</span>
-                        <span className="input-note">Required Size: 100x100 pixels</span>
+                        {this.props.template == "HeroPlacement" ? 
+                            <span className="input-note">Minimum Size: 800x540 pixels</span> :
+                            <span className="input-note">Required Size: 100x100 pixels</span>}
                         <span className="errormsg">{this.state.ierr}</span>
                         
                         <div className="clearfix"></div>

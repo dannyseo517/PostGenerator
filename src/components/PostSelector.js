@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import PostInputs from './PostInputs';
 import {templateType} from '../actions'
+import {addAdSpot} from '../actions'
 import {adSpot} from '../actions'
 require( '../../public/assets/css/postinputs.css');
 
@@ -27,8 +28,11 @@ class PostSelector extends Component{
         if(event.target.value == "WebsiteSponsorPost"){
             this.state.content = <PostInputs id="wsp"/>;
         }
-        if(event.target.value == "DigestSponsorPost" || event.target.value == "HeroPlacement"){
-            this.state.content = <PostInputs id="dsp"/>;
+        if(event.target.value == "DigestSponsorPost"){
+            this.state.content = <PostInputs id="dsp" />;
+        }
+        if( event.target.value == "HeroPlacement"){
+            this.state.content = <PostInputs id="hsp" />;
         }
         
         this.props.dispatch(templateType(event.target.value));
@@ -39,7 +43,6 @@ class PostSelector extends Component{
     }
 
     
-    
     render(){
         
         return(
@@ -47,7 +50,7 @@ class PostSelector extends Component{
                 <select className="form-control" onChange={this.handleChange} value={this.state.value}>
                     <option value="DigestSponsorPost">Digest Sponsor Post</option>
                     <option value="WebsiteSponsorPost">Website Sponsor Post</option>
-                    <option value="HeroPlacement">Hero Placement</option>
+                    <option value="HeroPlacement" image="">Hero Placement</option>
                 </select>
                 {this.props.template != "HeroPlacement" ?
                 <div className="radios">
@@ -68,7 +71,8 @@ class PostSelector extends Component{
 
 const mapStateToProps = store => {
     return {
-        template: store.template.template
+        template: store.template.template,
+        mainpanel: store.mainpanel
     }
 }
 
