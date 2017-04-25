@@ -39,7 +39,7 @@ function getBase64(file, callback) {
         console.log('Error: ', error);
     };
 }
-class CustomModal extends Component {
+class SendModal extends Component {
     constructor (props) {
         super(props);
         this.openModal = this.openModal.bind(this);
@@ -59,6 +59,7 @@ class CustomModal extends Component {
         this.sendEmail = this.sendEmail.bind(this);
         this.formValidator = this.formValidator.bind(this);
         this.verifyCallback = this.verifyCallback.bind(this);
+        this.expiredCallback = this.expiredCallback.bind(this);
         this.showPreview = this.showPreview.bind(this);
 
     }
@@ -67,10 +68,11 @@ class CustomModal extends Component {
         if(this.props.validateInputs()){
             this.setState({open: true, sentSuccess: false});
             this.props.handlePreview(this);
+            // if(this.props.template.template=="DigestSponsorPost"){
+            //     document.getElementById("preview-send").appendChild(this.showPreview());
+            // }
         }
-     
     }
-
     closeModal () {
         this.setState({open: false});
     }
@@ -126,27 +128,49 @@ class CustomModal extends Component {
     sendEmail(event){
         event.preventDefault();
         if(this.formValidator()){
-            var param = ''
-            param += 'from=' + this.state.senderName + '&email=' + this.state.senderEmail
-            param += '&type=' + this.props.template.template
-            param += '&spot=' + this.props.spot
-            param += '&recap=' + this.state.reCaptchaResponse
-            param += '&headline=' + this.props.mainpanel.headline;
-            param += '&link=' + this.props.mainpanel.url;
-            
-            if(this.props.template.template != "HeroPlacement"){
-                param += '&body=' + this.props.mainpanel.body;
+            var _from = this.state.senderName;
+            var _email = this.state.senderEmail;
+            var _type = this.props.template.template;
+            var _spot = this.props.spot;
+            var _recap = this.props.reCaptchaResponse;
+            var _headline = this.props.mainpanel.headline;
+            var _link = this.props.mainpanel.url;
+            var _image = "";
+            var _postbody = "";
+            var _msg = this.state.emailMessage;
+            var _subject = "[Sponsor Post Generator] New Request";
+            var _to = "Advertisement";
+            if(_type != "HeroPlacement"){
+                _postbody = this.props.mainpanel.body;
             }
+
+            var _body = '<b>Name: </b>' + _from + '<br/><b>Email: </b>' + _email +
+                  '<br/><b>Type: </b>' + _type + '<br/><b>Spot: </b>' + _spot + '<br/><b>Headline: </b>' + _headline +
+                  '<br/><b>Body: </b>' + _postbody + '<br/><b>Link: </b>' + _link + 
+                  '<br/><b>Additional Message: </b>' + _msg;
+
             if(this.props.template.template == "DigestSponsorPost"){
                 var canvas = document.getElementById("canvas-"+this.props.spot);
-                param += '&image=' +  canvas.toDataURL('image/jpeg')
-                fetch(config.emailserver+'?' + param, {mode: 'cors'})
-                        .then(result=> {
-                            if(result.status == 200){
-                                this.setState({sentSuccess: true})
-                            }
-                    });
-        
+                fetch(config.emailserver, {
+                    method:'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Access-Control-Allow-Origin':'*',
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    body:JSON.stringify({
+                        to: _to,
+                        subject: _subject,
+                        body: _body,
+                        image: canvas.toDataURL('image/jpeg')
+                    })
+                }).then(result=> {
+                    if(result.status == 200){
+                        this.setState({sentSuccess: true})
+                    }
+                }).catch(function(error){
+                    console.log("Request failed", error);
+                });
             }
             else{
                 getBase64(this.props.mainpanel.image, function(ret){
@@ -163,25 +187,25 @@ class CustomModal extends Component {
         }
     }
     showPreview(){
-        if(this.props.template.template=="DigestSponsorPost"){
-            return(
-                <div>
-                    <CanvasCreator id="prev" file={this.props.mainpanel.image} headline={this.props.mainpanel.headline} body={this.props.mainpanel.body} url={this.props.mainpanel.url}/>
-                </div>
-            );
-        }
+        return(
+            <div>
+                <CanvasCreator id="prev" file={this.props.mainpanel.image} headline={this.props.mainpanel.headline} body={this.props.mainpanel.body} url={this.props.mainpanel.url}/>
+            </div>
+        )
     }
     
     verifyCallback(response) {
         this.setState({reCaptchaResponse: response});
         this.setState({recaperr: ""});
     };
+
+    expiredCallback(response){
+        this.setState({reCaptchaResponse: ""});
+    }
     
     render () {
         var Recaptcha = require('react-recaptcha');
         return (
-            <div>
-            
             <div>
                 <button id="modalbtn" type="button" className="btn btn-success btn-block" onClick={this.openModal}>Send</button>
                 <Modal 
@@ -198,6 +222,9 @@ class CustomModal extends Component {
                 :
                   <form className="sendForm">
                       <h1>{this.sponsorTypes()}</h1>
+                        <div id="preview-send"></div> 
+                                        <CanvasCreator id="prev" file={this.props.mainpanel.image} headline={this.props.mainpanel.headline} body={this.props.mainpanel.body} url={this.props.mainpanel.url}/>
+
                         <h5>Name</h5>
                         <input id="send-name" type="text" className="form-control" placeholder="Text input" 
                                value={this.state.senderName} onChange={this.handleInputs} />
@@ -206,7 +233,6 @@ class CustomModal extends Component {
                         <input id="send-email" type="text" className="form-control" placeholder="Text input" value={this.state.senderEmail} 
                                onChange={this.handleInputs}/>
                         <span className="errorMsg" id="send-email-error">{this.state.emailerr}</span>
-                        {this.showPreview()}
                         <h5>Additional Message</h5>
                         <textarea id="send-body" className="form-control" rows="3" value={this.state.emailMessage} onChange={this.handleInputs}></textarea>
                         <div id="recap" className="center">
@@ -214,6 +240,7 @@ class CustomModal extends Component {
                                 sitekey="6LfK0gATAAAAAHz3VyQnyvhiwja2u4qYrn_irM65"
                                 render="explicit"
                                 onloadCallback={console.log.bind(this, "recaptcha loaded")}
+                                expiredCallback={this.expiredCallback}
                                 verifyCallback={this.verifyCallback}
                             />
                             <span className="errorMsg" id="recap-error">{this.state.recaperr}</span>
@@ -230,9 +257,6 @@ class CustomModal extends Component {
                 }
                 </Modal>
             </div>
-            
-            </div>
-            
         );
     }
 }
@@ -246,6 +270,6 @@ const mapStateToProps = state => {
     }
 }
 
-CustomModal = connect(mapStateToProps)(CustomModal)
+SendModal = connect(mapStateToProps)(SendModal)
 
-export default CustomModal
+export default SendModal

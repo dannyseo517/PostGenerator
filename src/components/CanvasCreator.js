@@ -46,7 +46,6 @@ class CanvasCreator extends Component{
             var div = document.getElementById(id);
             var canvas = document.createElement("canvas");
             canvas.id = "canvas-" + id;
-
             var fr = new FileReader();
             fr.onload = function(){
                 var ctx = canvas.getContext('2d');
@@ -88,6 +87,7 @@ class CanvasCreator extends Component{
     render(){
         return(
             <div id={this.props.id}>
+                {console.log("wtf")}
                 {this.createImage(this.props.id, this.props.file, this.props.headline, this.props.body)}
             </div>
         )

@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import {addAdSpot} from '../actions'
 import {connect} from 'react-redux'
-import CustomModal from './SendModal'
+import SendModal from './SendModal'
 require( '../../public/assets/css/postinputs.css');
 
 var MAX_HEADLINE = 60;
@@ -125,7 +126,6 @@ class PostInputs extends Component{
         }
     }
     
-
     render(){
         return(
             <div className="WebSP">
@@ -168,9 +168,9 @@ class PostInputs extends Component{
                 <button id="sp1-prev" type="button" className="btn btn-success btn-block" onClick={this.handlePreview} >
                     Preview
                 </button>
-
+                
                 <div id="modal">
-                    <CustomModal handlePreview={this.handlePreview} validateInputs={this.validateInputs}/>    
+                    <SendModal handlePreview={this.handlePreview} validateInputs={this.validateInputs}/>    
                 </div>
                     
             </div>

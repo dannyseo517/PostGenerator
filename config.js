@@ -1,5 +1,5 @@
 var config = {
-  emailserver: 'http://localhost:4000/send'
+  emailserver: 'http://api.infomine.com:4000/send'
 }
 
 module.exports = config;
