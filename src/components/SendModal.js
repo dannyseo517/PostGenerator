@@ -2,6 +2,7 @@ import Modal from 'react-modal'
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import CanvasCreator from './CanvasCreator'
+import 'whatwg-fetch'
 require( '../../public/assets/css/form.css');
 var config = require("../../config");
 
