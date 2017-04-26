@@ -19,7 +19,6 @@ class WebSiteTemplate extends Component{
     }
     
     renderSponsorPost(spid, headline, body, image){
-        console.log("hello");
         if(headline && body && image){
             return(
                 <div id={"div-" + spid} className="kesselPost sponsor-post hidden-print">

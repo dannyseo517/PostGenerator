@@ -54,7 +54,8 @@ class SendModal extends Component {
             link: '',
             emailerr: '', nameerr: '', spoterr: '', recaperr: '',
             reCaptchaResponse: '',
-            sentSuccess: false
+            sentSuccess: false,
+            sentMessage: ''
         }
         this.handleInputs = this.handleInputs.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
@@ -133,7 +134,7 @@ class SendModal extends Component {
             var _email = this.state.senderEmail;
             var _type = this.props.template.template;
             var _spot = this.props.spot;
-            var _recap = this.props.reCaptchaResponse;
+            var _recap = this.state.reCaptchaResponse;
             var _headline = this.props.mainpanel.headline;
             var _link = this.props.mainpanel.url;
             var _image = "";
@@ -154,8 +155,8 @@ class SendModal extends Component {
                 var canvas = document.getElementById("canvas-"+this.props.spot);
                 fetch(config.emailserver, {
                     method:'POST',
-                    mode: 'no-cors',
                     headers: {
+                        'Accept': 'application/json, text/plain, */*',
                         'Access-Control-Allow-Origin':'*',
                         'Content-Type': 'multipart/form-data'
                     },
@@ -163,27 +164,57 @@ class SendModal extends Component {
                         to: _to,
                         subject: _subject,
                         body: _body,
-                        image: canvas.toDataURL('image/jpeg')
+                        image: canvas.toDataURL('image/jpeg'), 
+                        recaptcha: _recap
                     })
-                }).then(result=> {
+                }).then(result => {
+                    console.log(result);
                     if(result.status == 200){
-                        this.setState({sentSuccess: true})
+                        this.setState({sentSuccess: true});
+                        this.setState({sentMessage: "Thank you. Your response has been sent."})
+                    }else{
+                        this.setState({sentSuccess: true});
+                        this.setState({sentMessage: "Error has occurred. Please try again later."})
                     }
-                }).catch(function(error){
-                    console.log("Request failed", error);
+                
+                })
+                .catch (function (error) {
+                        this.setState({sentSuccess: true});
+                        this.setState({sentMessage: "Error has occurred. Please try again later."})
                 });
             }
             else{
                 getBase64(this.props.mainpanel.image, function(ret){
-                    param += '&image=' + ret;
-                    fetch(config.emailserver+'?' + param, {mode: 'cors'})
-                        .then(result=> {
-                            if(result.status == 200){
-                                this.setState({sentSuccess: true})
-                            }
-                        });
-
+                    fetch(config.emailserver, {
+                        method:'POST',
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Access-Control-Allow-Origin':'*',
+                            'Content-Type': 'multipart/form-data'
+                        },
+                        body:JSON.stringify({
+                            to: _to,
+                            subject: _subject,
+                            body: _body,
+                            image: ret, 
+                            recaptcha: _recap
+                        })
+                    }).then(result => {
+                        console.log(result);
+                        if(result.status == 200){
+                            this.setState({sentSuccess: true});
+                            this.setState({sentMessage: "Thank you. Your response has been sent."})
+                        }else{
+                            this.setState({sentSuccess: true});
+                            this.setState({sentMessage: "Error has occurred. Please try again later."})
+                        }
+                    
+                    })
+                    .catch (function (error) {
+                            this.setState({sentSuccess: true});
+                            this.setState({sentMessage: "Error has occurred. Please try again later."})
                     });
+                });
             }
         }
     }
@@ -216,9 +247,10 @@ class SendModal extends Component {
                   contentLabel="Example Modal"
                   style={customStyles}
                 >
+                <div id="content">
                 {this.state.sentSuccess ? 
                 <div>
-                    <h2 style={{textAlign:"center"}}>Thank you. Your response has been sent.</h2>
+                    <h2 style={{textAlign:"center"}}>{this.state.sentMessage}</h2>
                 </div>
                 :
                   <form className="sendForm">
@@ -256,6 +288,7 @@ class SendModal extends Component {
                         </div>
                     </form>
                 }
+                </div>
                 </Modal>
             </div>
         );
