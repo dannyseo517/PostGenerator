@@ -5,6 +5,11 @@ import CanvasCreator from './CanvasCreator'
 import 'whatwg-fetch'
 require( '../../public/assets/css/form.css');
 var config = require("../../config");
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 var customStyles = {
   overlay : {
@@ -24,7 +29,7 @@ var customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     width                 : '80%',
-    height                :  'auto',
+    height                : 'auto',
     backgroundColor       : '#eaeaea'
    
   }
@@ -55,7 +60,10 @@ class SendModal extends Component {
             emailerr: '', nameerr: '', spoterr: '', recaperr: '',
             reCaptchaResponse: '',
             sentSuccess: false,
-            sentMessage: ''
+            sentMessage: '',
+            startDate: null,
+            endDate: null,
+            campaignerr: '',
         }
         this.handleInputs = this.handleInputs.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
@@ -63,9 +71,16 @@ class SendModal extends Component {
         this.verifyCallback = this.verifyCallback.bind(this);
         this.expiredCallback = this.expiredCallback.bind(this);
         this.showPreview = this.showPreview.bind(this);
-
+        this.handleStartDate = this.handleStartDate.bind(this);
+        this.handleEndDate = this.handleEndDate.bind(this);
     }
+    handleStartDate(day){
+        this.setState({startDate: day});
+    };
 
+    handleEndDate(day){
+        this.setState({endDate: day});
+    };
     openModal () { 
         if(this.props.validateInputs()){
             this.setState({open: true, sentSuccess: false});
@@ -94,7 +109,6 @@ class SendModal extends Component {
             sponsorType
         )
     }
-
     
     handleInputs(event){
         if(event.target.id == "send-name"){
@@ -111,9 +125,9 @@ class SendModal extends Component {
     }
 
     formValidator(){
-        
         if(this.state.senderName.trim() == "" || this.state.senderEmail.trim() ==""
-            || this.state.reCaptchaResponse.trim() == ""){
+            || this.state.reCaptchaResponse.trim() == "" 
+            || this.state.startDate == null || this.state.endDate == null){
                 if(this.state.senderEmail.trim() == ""){
                     this.setState({emailerr: "Please enter your contact email"});
                 }
@@ -122,6 +136,9 @@ class SendModal extends Component {
                 }if(this.state.reCaptchaResponse.trim() == ""){
                     this.setState({recaperr: "Please verify recaptcha"});
                 }
+                if(this.state.startDate==null || this.state.endDate == null){
+                    this.setState({campaignerr: "Please enter the campaign dates"});
+                }
                 return false;
         }
         return true;
@@ -129,6 +146,7 @@ class SendModal extends Component {
 
     sendEmail(event){
         event.preventDefault();
+        console.log(this.formValidator());
         if(this.formValidator()){
             var _from = this.state.senderName;
             var _email = this.state.senderEmail;
@@ -139,16 +157,18 @@ class SendModal extends Component {
             var _link = this.props.mainpanel.url;
             var _image = "";
             var _postbody = "";
+            var _startDate = this.state.startDate._d;
+            var _endDate = this.state.endDate._d;
             var _msg = this.state.emailMessage;
             var _subject = "[Sponsor Post Generator] New Request";
             var _to = "Advertisement";
             if(_type != "HeroPlacement"){
                 _postbody = this.props.mainpanel.body;
             }
-
             var _body = '<b>Name: </b>' + _from + '<br/><b>Email: </b>' + _email +
                   '<br/><b>Type: </b>' + _type + '<br/><b>Spot: </b>' + _spot + '<br/><b>Headline: </b>' + _headline +
                   '<br/><b>Body: </b>' + _postbody + '<br/><b>Link: </b>' + _link + 
+                  '<br/><b>Campaign Start Date: </b>' + _startDate + '<br/><b>Campaign End Date: </b>' + _endDate + 
                   '<br/><b>Additional Message: </b>' + _msg;
 
             if(this.props.template.template == "DigestSponsorPost"){
@@ -181,7 +201,7 @@ class SendModal extends Component {
                 .catch (function (error) {
                         this.setState({sentSuccess: true});
                         this.setState({sentMessage: "Error has occurred. Please try again later."})
-                });
+                }.bind(this));
             }
             else{
                 getBase64(this.props.mainpanel.image, function(ret){
@@ -210,7 +230,7 @@ class SendModal extends Component {
                         }
                     
                     })
-                    .catch (function (error) {
+                    .catch (error => {
                             this.setState({sentSuccess: true});
                             this.setState({sentMessage: "Error has occurred. Please try again later."})
                     });
@@ -256,18 +276,37 @@ class SendModal extends Component {
                   <form className="sendForm">
                       <h1>{this.sponsorTypes()}</h1>
                         <div id="preview-send"></div> 
-                                        <CanvasCreator id="prev" file={this.props.mainpanel.image} headline={this.props.mainpanel.headline} body={this.props.mainpanel.body} url={this.props.mainpanel.url}/>
+                        <CanvasCreator id="prev" file={this.props.mainpanel.image} headline={this.props.mainpanel.headline} body={this.props.mainpanel.body} url={this.props.mainpanel.url}/>
 
-                        <h5>Name</h5>
+                        <h5>Sender Name</h5>
                         <input id="send-name" type="text" className="form-control" placeholder="Text input" 
                                value={this.state.senderName} onChange={this.handleInputs} />
                         <span className="errorMsg" id="send-name-error">{this.state.nameerr}</span>
-                        <h5>Contact Email</h5>
+                        <h5>Sender Contact Email</h5>
                         <input id="send-email" type="text" className="form-control" placeholder="Text input" value={this.state.senderEmail} 
                                onChange={this.handleInputs}/>
                         <span className="errorMsg" id="send-email-error">{this.state.emailerr}</span>
+                        <div className="form-group">
+                            <h5>Campaign Date</h5>
+                            <DatePicker
+                                selected={this.state.startDate}
+                                onChange={this.handleStartDate}
+                                className="form-control"
+                                id="startDate"
+                                placeholderText="Start Date"
+                            />
+                            <DatePicker
+                                selected={this.state.endDate}
+                                onChange={this.handleEndDate}
+                                className="form-control"
+                                id="endDate"
+                                placeholderText="End Date"
+                            />
+                            
+                        </div>
+                        <span className="errorMsg" id="capaign-date-error">{this.state.campaignerr}</span>
                         <h5>Additional Message</h5>
-                        <textarea id="send-body" className="form-control" rows="3" value={this.state.emailMessage} onChange={this.handleInputs}></textarea>
+                        <textarea id="send-body" className="form-control" rows="3" onChange={this.handleInputs}></textarea>
                         <div id="recap" className="center">
                             <Recaptcha
                                 sitekey="6LfK0gATAAAAAHz3VyQnyvhiwja2u4qYrn_irM65"

@@ -21,8 +21,14 @@ function checkFileDimensions(type, file, callback){
                     }else{if(callback){callback("false")}
                 }
             }
+            else if(type=="WebsiteSponsorPost"){
+                if(img.width > 200 && img.height > 200){
+                    if(callback){callback("true")}
+                    }else{if(callback){callback("false")}
+                }
+            }
             else{
-                if(img.width == img.height){
+                if(img.width > 150 && img.height > 150){
                     if(callback){callback("true")}
                 }else{
                     if(callback){callback("false")}
@@ -88,15 +94,18 @@ class PostInputs extends Component{
         var file = event.target.files[0];
         var target = event.target.id;
         var type = this.props.template;
-        checkFileDimensions(type, event.target.files[0], function(ret){
-            if(ret == "true"){
-                that.setState({image: file, imageerror: "",ierr: "", imagebool: true})
-            }
-            else{
-                that.setState({image: "", imageerror: "Please see the image size below", imagebool: false})
-            }
-            
-        })
+        if(file.size > 200000){
+            this.setState({image: "", imageerror: "Image is too large. Max 200 KB"})
+        }else{
+            checkFileDimensions(type, event.target.files[0], function(ret){
+                if(ret == "true"){
+                    that.setState({image: file, imageerror: "",ierr: "", imagebool: true})
+                }
+                else{
+                    that.setState({image: "", imageerror: "Please see the image size below", imagebool: false})
+                }
+            })
+        }
     }
 
     validateInputs(){
@@ -156,9 +165,19 @@ class PostInputs extends Component{
                         <input id="sp1-image" style={{display: 'none' }} type='file' onChange={this.handleImageChange}/>
                         <span className="input-note">{this.state.image.name}</span>
                         <span className="input-note" style={{color:'red'}}>{this.state.imageerror}</span>
-                        {this.props.template == "HeroPlacement" ? 
-                            <span className="input-note">Minimum Size: 800x540 pixels</span> :
-                            <span className="input-note">Required Size: 100x100 pixels</span>}
+                        
+                        {
+                            (() => {
+                                if(this.props.template == "HeroPlacement") {
+                                    return <span className="input-note">Minimum Dimensions: 800x540 pixels</span>
+                                } else if(this.props.template == "WebsiteSponsorPost") {
+                                    return <span className="input-note">Minimum Dimensions: 200x200 pixels</span>
+                                } else {
+                                    return <span className="input-note">Minimum Dimensions: 150x150 pixels</span>
+                                }
+                            })()
+                        }
+                        <span className="input-note">Maximum Size: 200 KB</span>
                         <span className="errormsg">{this.state.ierr}</span>
                         
                         <div className="clearfix"></div>
