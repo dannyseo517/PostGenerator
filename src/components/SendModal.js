@@ -230,11 +230,10 @@ class SendModal extends Component {
                         }
                     
                     })
-                    .catch (error => {
-                            this.setState({sentSuccess: true});
-                            this.setState({sentMessage: "Error has occurred. Please try again later."})
-                    });
-                });
+                    .catch (function (error) {
+                        console.log(error);
+                    }.bind(this));
+                }.bind(this));
             }
         }
     }

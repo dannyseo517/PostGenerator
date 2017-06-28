@@ -16,19 +16,19 @@ function checkFileDimensions(type, file, callback){
         var img = new Image;
         img.onload = function() {
             if(type=="HeroPlacement"){
-                if(img.width > 800 && img.height > 540){
+                if(img.width >= 800 && img.height >= 540){
                     if(callback){callback("true")}
                     }else{if(callback){callback("false")}
                 }
             }
             else if(type=="WebsiteSponsorPost"){
-                if(img.width > 200 && img.height > 200){
+                if(img.width >= 200 && img.height >= 200){
                     if(callback){callback("true")}
                     }else{if(callback){callback("false")}
                 }
             }
             else{
-                if(img.width > 150 && img.height > 150){
+                if(img.width >= 150 && img.height >= 150){
                     if(callback){callback("true")}
                 }else{
                     if(callback){callback("false")}

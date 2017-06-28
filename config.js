@@ -1,5 +1,5 @@
 var config = {
-  emailserver: 'http://mailapi.mining.com:4000/send'
+  emailserver: 'https://mailapi.mining.com/send'
 }
 
 module.exports = config;
